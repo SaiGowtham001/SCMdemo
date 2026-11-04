@@ -4,7 +4,7 @@
   "description": "XYZ Company Product Microservice",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodes server.js"
   },
   "dependencies": {
     "express": "^4.21.2"
