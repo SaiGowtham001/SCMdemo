@@ -1,0 +1,58 @@
+const express = require("express");
+
+const app = express();
+app.use(express.json());
+
+const orders = [
+    {
+        id: 1001,
+        userId: 1,
+        productId: 101,
+        quantity: 1,
+        status: "Confirmed"
+    },
+    {
+        id: 1002,
+        userId: 2,
+        productId: 102,
+        quantity: 2,
+        status: "Processing"
+    }
+];
+
+// Home API
+app.get("/", (req, res) => {
+    res.send("XYZ Company - Order Service Running");
+});
+
+// Get all orders
+app.get("/orders", (req, res) => {
+    res.json(orders);
+});
+
+// Get order by ID
+app.get("/orders/:id", (req, res) => {
+    const order = orders.find(o => o.id === Number(req.params.id));
+
+    if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.json(order);
+});
+
+// Create order
+app.post("/orders", (req, res) => {
+    const order = {
+        id: orders.length + 1001,
+        ...req.body,
+        status: "Confirmed"
+    };
+
+    orders.push(order);
+    res.status(201).json(order);
+});
+
+app.listen(3003, "0.0.0.0", () => {
+    console.log("Order Service running on port 3003");
+});
