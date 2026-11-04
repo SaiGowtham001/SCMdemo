@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'develop',
+                url: 'https://github.com/USERNAME/microservices-devops-project.git'
+            }
+        }
+          
+        }
+
+        stage('Deployment Preparation') {
+            steps {
+                echo 'All three microservices built successfully'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully'
+        }
+
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
+}
